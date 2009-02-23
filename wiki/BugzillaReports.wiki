@@ -1,6 +1,6 @@
 BugzillaReports generates great looking reports from Bugzilla which you can include in your MediaWiki pages (or in fact any PHP application). Great to provide access to Bugzilla info, for example:
 
-# Generate release notes when you release
+* Generate release notes when you release
 # Generate roadmap reports for what's coming in a future release
 # Generate your personal task radar - what should you be doing next
 # Access controlled reports - if you want to expose bugzilla summaries to those who don't have access to Bugzilla
