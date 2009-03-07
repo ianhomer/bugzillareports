@@ -1,3 +1,5 @@
+#summary - Background on Bugzilla Reports
+
 BugzillaReports generates great looking reports from Bugzilla which you can include in your MediaWiki pages (or in fact any PHP application). Great to provide access to Bugzilla info, for example:
 
 Generate release notes when you release
