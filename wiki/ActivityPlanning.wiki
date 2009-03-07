@@ -14,7 +14,7 @@ At any point of time you can read the [http://code.google.com/p/bugzillareports/
 
 The futures milestone is a marker for tasks that we set no expectations for addressing.  This can be for a few reasons:
 
-# Not known how to do
-# Difficult or time consuming
-# Not clear enough use case / benefit
-# Open debate on best way forward for it
+  # Not known how to do
+  # Difficult or time consuming
+  # Not clear enough use case / benefit
+  # Open debate on best way forward for it
