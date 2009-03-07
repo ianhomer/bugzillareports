@@ -1,0 +1,9 @@
+#summary Activity planning for Bugzilla Reports
+
+= Introduction =
+
+Use this page to record development activity
+
+= 1.1 Milestone =
+
+The next milestone release will be 1.1.  A tentative release date for this is the end of April.  Work will take place on trunk - if you wish to pick up an early release to address an issue fixed then you're welcome to check source direct out of trunk.  We will endeavour to keep trunk working, but do report any issues with trunk if you do encounter any.
