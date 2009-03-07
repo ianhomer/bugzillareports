@@ -12,7 +12,7 @@ At any point of time you can read the [http://code.google.com/p/bugzillareports/
 
 = Futures Milestone =
 
-The futures milestone is a marker for tasks that we set no expectations for addressing.  This can be for a few reasons:
+The *futures* milestone is a marker for tasks that we set no expectations for addressing.  This can be for a few reasons:
 
   # Not known how to do
   # Difficult or time consuming
