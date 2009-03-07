@@ -1,4 +1,4 @@
-#Summary Who uses Bugzilla Reports
+#summary Who uses Bugzilla Reports
 
 Feel free to add your wiki if you use the BugzillaReports extension.
 
