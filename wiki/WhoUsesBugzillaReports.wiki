@@ -1,3 +1,5 @@
+#Summary Who uses Bugzilla Reports
+
 Feel free to add your wiki if you use the BugzillaReports extension.
 
   # bemoko (internal wiki)
