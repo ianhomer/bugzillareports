@@ -6,11 +6,9 @@
   * #8  - Add a format to inline a bug report, e.g. {{#bugzilla:debug=1|id=661|status=*|format=inline}}
   * #13 - Added support for created filters, e.g. {{#bugzilla:created=-1m|createdformat=date}}
   * #13 - Added support for filters on status change, e.g. {{#bugzilla:assigned=2009-05-01:2009-05-31}}, 
-  {{#bugzilla:resolved=2009-05-01:2009-05-31}}, {{#bugzilla:verified=2009-05-01:2009-05-31}},
-  {{#bugzilla:closed=2009-05-01:2009-05-31}}, {{#bugzilla:reopened=2009-05-01:2009-05-31}}
+  {{#bugzilla:resolved=2009-05-01:2009-05-31}}, {{#bugzilla:verified=2009-05-01:2009-05-31}}, {{#bugzilla:closed=2009-05-01:2009-05-31}}, {{#bugzilla:reopened=2009-05-01:2009-05-31}}
   * #18 - Add support for attachments, e.g. {{#bugzilla:sort=attachments|order=desc|status=*}}
-  * #21 - Added support for reports on hardware and os, e.g.   {{#bugzilla:columns=+hardware,os}}
-  {{#bugzilla:columns=+hardware,os|os=Linux}}, {{#bugzilla:columns=+hardware,os|hardware=Macintosh}}
+  * #21 - Added support for reports on hardware and os, e.g.   {{#bugzilla:columns=+hardware,os}}, {{#bugzilla:columns=+hardware,os|os=Linux}}, {{#bugzilla:columns=+hardware,os|hardware=Macintosh}}
   * #25 - Sortable set to true by default, if you want to disable the sortable links then set "sortable=0". Sorting now works for all columns even if details row is displayed, but sorting disabled when grouping is enabled
   * BUG : #3  - Task repeated in report for tasks with multiple keywords when keywords displayed in report
   * BUG : #5  - deadline (or any date) range matches did not work, e.g. deadline=2008-12-01:2008-12-31
