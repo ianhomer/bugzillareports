@@ -50,11 +50,18 @@ span.bz_keyword {
 	background-color:#ffe0e0;
 	font-size: x-small;	
 }
+table.bugzilla {
+	width:100%;
+}
 table.bugzilla td{
 	padding:2px 5px 2px 5px;
 }
-table.bugzilla td.bz_details{
-	padding:2px 5px 2px 30px;
+table.bugzilla tr.bz_details{
+	color: #222;
+	font-style: italic;
+}
+div.bz_details{
+	padding:2px 2px 2px 2px;
 	color: #222;
 	font-style: italic;
 }
@@ -117,7 +124,7 @@ table.bugzilla tr.CLOSED td {
 table.bugzilla tr {
 	vertical-align:top;
 }
-table.bugzilla tr:hover {
+table.bugzilla tr:not(.bz_details):hover {
 	background-color: #e0e0e0;
 }
 table.bugzilla tr.bz_total td {
@@ -211,7 +218,7 @@ table.bugzilla tr.some td div.C9{
 	background-color: #eee;
 }
 /* Dates */
-div.date2 {
+div.date1 {
 	color: #333;text-align:center;
 }
 div.date2 {

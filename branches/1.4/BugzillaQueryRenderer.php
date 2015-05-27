@@ -53,7 +53,7 @@ class BugzillaQueryRenderer {
     if ($this->query->get('format') != "inline") {
         $this->output .= "<table class=\"bugzilla";
       if ($this->query->is('sortable')) {
-        $this->output.=" sortable";
+       $this->output.=" sortable";
       }
       if ($this->query->get('bar')) {
         $this->output.=" bz_bar";
@@ -115,7 +115,7 @@ class BugzillaQueryRenderer {
         $this->context->debug && 
           $this->context->debug("Name for column $column is $name");  
         if (($column=="summary") && ($nRows > 1)) {
-          $name.=" ($nRows tasks)";
+          $name.=" ($nRows issues)";
           if ($this->context->bzserver && $this->query->get('bzurl')=="show"
               && substr($this->query->bzURL,strlen($this->query->bzURL) -
               strlen(BugzillaQuery::$buglistServerRelativeUri) ) !=
@@ -255,7 +255,7 @@ class BugzillaQueryRenderer {
       $firstcolumn=true;
       $even=!$even;
       $class="bz_bug ".$line["priority"]." ".$line["severity"]." ".$line["status"]." ";
-      if ($even) {
+      if ($even && !$this->query->get('detailsrow')) {
         $class.="bz_row_even";
       } else {
         $class.="bz_row_odd";
@@ -309,13 +309,15 @@ class BugzillaQueryRenderer {
             $this->output .= "<tr class=\"".$class."\">";
           foreach ($this->query->getColumns() as $column) {
             $dbColumn=$this->query->mapField($column);
-            if (!$this->query->get('detailsrow') 
-                or !array_key_exists($dbColumn,
-                  $detailsRowColumns)) {
+            if (!$this->query->get('detailsrow') or !array_key_exists($dbColumn, $detailsRowColumns)) {
               $title=$this->query->getValueTitle($line,$dbColumn);
               $value=$this->query->
                 format($this->query->getDBValue($line,$dbColumn),$column,$title);
-              $this->output.="<td";
+              if($column == "summary") {
+                $this->output.="<td nowrap";
+              } else {
+                $this->output.="<td";
+              }
               if ($title) {
                 $this->output.=" title=\"$title\"";
               }
@@ -378,7 +380,7 @@ class BugzillaQueryRenderer {
       if ($this->query->get('blocks') && 
           ($line["blocks"] != $currentBlocksId)) {
         $currentBlocksId=$line["blocks"];     
-        $this->renderDetailsRow(
+        $this->renderDependsBlockRow(
         $this->query->blocksRowColumns,$line,"&rArr; ");
       }
       #
@@ -387,7 +389,7 @@ class BugzillaQueryRenderer {
       if ($this->query->get('depends') && 
           ($line["depends"] != $currentDependsId)) {
         $currentDependsId=$line["depends"];     
-        $this->renderDetailsRow(
+        $this->renderDependsBlockRow(
         $this->query->dependsRowColumns,$line,"&lArr; ");
       }
     }
@@ -418,10 +420,12 @@ class BugzillaQueryRenderer {
   #
   # Render a details row
   #
-  private function renderDetailsRow($array,$line,$prepend) {
+  private function renderDependsBlockRow($array,$line,$prepend) {
     $details="";
     $extra="";
     $title="";
+    $colspan=$this->numberOfMainRowColumns;
+
     foreach (array_keys($array) as $column) {
       $dbColumn=$this->query->mapField($column);
       if ($line[$column]) {
@@ -456,14 +460,12 @@ class BugzillaQueryRenderer {
       #
       $this->output.="<tr class=\"bz_details\">";
       $i=0;
+
       foreach ($this->query->getColumns() as $column) {
         $dbColumn=$this->query->mapField($column);        
-        if (!$this->query->get('detailsrow') 
-            or !array_key_exists($dbColumn,
-              $detailsRowColumns)) {
+        if (!$this->query->get('detailsrow') or !array_key_exists($dbColumn, $detailsRowColumns)) {
           $title=$this->query->getValueTitle($line,$dbColumn);
-          $value=$this->query->
-            format($this->query->getDBValue($line,$dbColumn),$column,$title);
+          $value=$this->query->format($this->query->getDBValue($line,$dbColumn),$column,$title);
           #
           # Putting ZZZ after the value ensures that it sorts after the row this is associated with
           $this->output.="<td><span style=\"display:none\">$value</span>";
@@ -485,6 +487,75 @@ class BugzillaQueryRenderer {
       }
       $this->output.="</tr>";
     }   
+  }
+  
+  #
+  # Render a details row
+  #
+  private function renderDetailsRow($array,$line,$prepend) {
+    $colspan=$this->numberOfMainRowColumns;
+
+    $i=0;
+
+    foreach (array_keys($array) as $column) {
+      $details="";
+      $extra="";
+      $title="";
+
+      $dbColumn=$this->query->mapField($column);
+      if ($line[$column]) {
+        $valueTitle=$this->query->getValueTitle($line,$column);
+        if ($valueTitle) {
+          $this->context->debug &&
+            $this->context->debug("Setting title for $column to $valueTitle");
+        }
+        switch ($array[$column]) {
+          case "title" :
+            $title=$this->query->format($this->query->getDBValue($line,$dbColumn),$column,$valueTitle)." ";
+            break;
+          case "extra" :
+            $extra=$this->query->format($this->query->getDBValue($line,$dbColumn),$column,$valueTitle)." ";
+            break;
+          default :
+            $details=$this->query->format($this->query->getDBValue($line,$dbColumn),$column,$valueTitle)." ";
+        }
+      }
+
+      if (trim($details)) {
+        #
+        # Use the trick in http://meta.wikimedia.org/wiki/Help:Sorting to allow the table
+        # to be sorted
+        #
+
+        $column = $this->query->getColumns();
+        $dbColumn=$this->query->mapField($column);        
+        if (!$this->query->get('detailsrow') or !array_key_exists($dbColumn, $detailsRowColumns)) {
+          $this->output.="<tr class=\"bz_details\">";
+          $title=$this->query->getValueTitle($line,$dbColumn);
+          $value=$this->query->format($this->query->getDBValue($line,$dbColumn),$column,$title);
+
+          if ($i==0 and $prepend) {
+            $this->output.="<th align=\"left\" colspan=\"$colspan\">$prepend</th>";
+            $this->output.="</tr><tr class=\"bz_details\">";
+          }
+
+          #
+          # Putting ZZZ after the value ensures that it sorts after the row this is associated with
+          $this->output.="<td colspan=\"$colspan\"><span style=\"display:none\">$value</span>";
+          $this->output.="<div title=\"$title\" class=\"bz_details\">";
+
+          $this->output.=$details;
+
+          if ($extra) {
+            $this->output.="<span class=\"bz_extra\"> - $extra</span>";
+          }
+          $this->output.="</div>";
+          $this->output.="</td>";
+          $this->output.="</tr>";
+          $i++;
+        }
+      }
+    } 
   }
   
   # Render the totals summary. 
