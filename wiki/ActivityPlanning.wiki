@@ -10,6 +10,12 @@ The next milestone release will be 1.1.  A tentative release date for this is th
 
 At any point of time you can read the [http://code.google.com/p/bugzillareports/source/browse/trunk/RELEASE-NOTES release notes] for this 1.1-SNAPSHOT release
 
+= 1.4 Milestone =
+
+I (wpmccormick) became actively involved with this project because I wasn't satisfied with how detailrows is (was) working. I made some changes that (at this point) contained in the 1.4 branch. 
+
+If you use BugzillReports, and are in a position to test 1.4; please do so and let me know if you have any problems.
+
 = Futures Milestone =
 
 The *futures* milestone is a marker for tasks that we set no expectations for addressing.  This can be for a few reasons:
