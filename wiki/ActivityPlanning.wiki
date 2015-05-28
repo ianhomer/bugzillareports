@@ -14,7 +14,7 @@ At any point of time you can read the [http://code.google.com/p/bugzillareports/
 
 I (wpmccormick) became actively involved with this project because I wasn't satisfied with how detailrows is (was) working. I made some changes that (at this point) contained in the 1.4 branch. 
 
-If you use BugzillReports, and are in a position to test 1.4; please do so and let me know if you have any problems.
+If you use BugzillaReports, and are in a position to test 1.4; please do so and let me know if you have any problems.
 
 = Futures Milestone =
 
