@@ -394,7 +394,7 @@ class BugzillaQuery extends BSQLQuery {
           if ($this->get('total')) {
             $output=$renderer->renderHTML($result);            
           } else {
-            #$output=$renderer->renderNoResultsHTML();
+            $output=$renderer->renderNoResultsHTML();
           }
         }
       }
