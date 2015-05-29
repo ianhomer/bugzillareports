@@ -178,7 +178,7 @@ class BugzillaQueryRenderer {
               }
               $colspan-=1;
             }
-            if ($this->query->get('total') && $groupValue) {
+            if ($this->query->get('total') && $groupValue && $count) {
               $this->renderTotal($arrayOfTotals,1);         
               foreach ($arrayOfTotalColumns as $totalColumn) {
                 $arrayOfTotals[$totalColumn]=0;
